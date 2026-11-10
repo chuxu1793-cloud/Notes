@@ -799,7 +799,7 @@ $$
 
 （其中的 $\cos^3$ 是"法线立体角 → 斜率面积"的雅可比，多出的一个 $\cos$ 来自 $P^{22}$ 按投影面积归一；斜率符号取决于切线基手性。）在斜率空间里缩放 $\alpha$ 等于把分布**线性拉伸**，微观几何形状不变、只被倒数缩放——这就是名字的来历。
 
-![](../../../gitee/notes/NDF/各向异性NDF.Image/3c17ccb94346e3c1f05d48c399c13135.png)
+![](../assets/3c17ccb94346e3c1f05d48c399c13135.png)
 
 好处有三：可直接推出归一化的**各向异性版本**（11.5）；可推出配套 Smith $G_1$，并用低维函数或表格覆盖所有粗糙度与各向异性；可基于 NDF 或可见法线分布推导重要性采样（第 12 章）。按此分类：GGX 与 Beckmann 具备形状不变性；Phong、Blinn-Phong、GTR 不具备（GTR 在 $\gamma=2$ 时退化为 GGX，$\gamma\ne2$ 即失去该性质，这也是它"控制更强却未普及"的深层原因）。
 
@@ -840,7 +840,7 @@ $$
 
 正是 11.3 的形式，$g(t)=\dfrac{1}{\pi(1+t^2)^2}$。大角度下 $\tan\theta_h\gg\alpha$ 时 $(\alpha^2c^2+s^2)^2\approx s^4$，故 $D_{GGX}\approx\dfrac{\alpha^2}{\pi\sin^4\theta_h}$；$\theta_h\to90^\circ$ 时 $s\to1$，GGX 趋于 $\alpha^2/\pi$（非零），Beckmann 与 Blinn-Phong 趋于 0（前者高斯型超指数衰减）。注意 $1/t^4$ 是对**斜率空间**分布 $P^{22}$ 的刻画：$P^{22}\sim\dfrac{\alpha^2}{\pi t^4}$（$t=\tan\theta_h$），不是 $D$ 自身按 $1/\theta^4$ 衰减的写法。
 
-![GGX 与其他 NDF 的尾部对比](../../../gitee/notes/NDF/NDF.Image/image-20220730160054448.png)
+![GGX 与其他 NDF 的尾部对比](../assets/image-20220730160054448.png)
 
 | | 归一化常数的来源 | 尾部 | $\theta_h=90^\circ$ | 形状不变 |
 | --- | --- | --- | --- | --- |
@@ -861,7 +861,7 @@ D_{aniso}(\omega_h)=\frac{1}{\alpha_x\alpha_y\cos^4\theta_h}\,
 g\!\left(\sqrt{\frac{\tan^2\theta_h\cos^2\phi_h}{\alpha_x^2}+\frac{\tan^2\theta_h\sin^2\phi_h}{\alpha_y^2}}\right)
 $$
 
-![](../../../gitee/notes/NDF/各向异性NDF.Image/13314b886dd537cf8751192404bb0737.png)
+![](../assets/13314b886dd537cf8751192404bb0737.png)
 
 代入 Beckmann 的 $g(t)=\frac{1}{\pi}e^{-t^2}$ 得 $D=\dfrac{1}{\pi\alpha_x\alpha_yc^4}\exp\!\left[-\tan^2\theta_h\left(\dfrac{\cos^2\phi_h}{\alpha_x^2}+\dfrac{\sin^2\phi_h}{\alpha_y^2}\right)\right]$；代入 GGX 的 $g(t)=\frac{1}{\pi(1+t^2)^2}$ 得
 
@@ -890,8 +890,8 @@ $a=0$ 时 aspect$=1$，退化为各向同性；$a\to1$ 时 aspect$\approx0.316$�
 2. **无法表示粗粒度微观结构**：一个像素覆盖数万个微元时统计描述成立；只覆盖几十个微元时外观是"复杂而闪烁"，而非各向异性——此时平滑的 $D$ 根本不成立。
 3. **只有单次散射**：Cook-Torrance 是最简单的模型——单层微平面的单次散射，不含多次散射、衍射与波动光学；多次散射缺失正是粗糙金属/电介质掠射角偏暗的主因。这是单次散射模型自身的局限，与 §7.2 的"高光能量归一化"是两个层面的问题。
 
-![](../../../gitee/notes/NDF/NDF.Image/image-20220731103913070.png)
-![](../../../gitee/notes/NDF/NDF.Image/image-20220731104321476.png)
+![](../assets/image-20220731103913070.png)
+![](../assets/image-20220731104321476.png)
 
 ### 11.7 $D$ 与可见法线分布（VNDF）的区别
 
@@ -1090,7 +1090,7 @@ $$
 \boxed{p_i(\omega_i)=\frac{p_h(\omega_h)}{4\,(v\cdot h)}}
 $$
 
-![](../../../gitee/notes/NDF/BRDF镜面反射.Image/v2-fbf75d6af184f40ce899197b8a459bd4_1440w.jpg)
+![](../assets/v2-fbf75d6af184f40ce899197b8a459bd4_1440w.jpg)
 
 **通量守恒的推导链**（源笔记 `NDF/BRDF镜面反射.md`）：法线为 $h$ 的微平面面积是 $D\,d\omega_h\,dA$，沿入射方向的投影为 $\cos\theta_h D\,d\omega_h\,dA$，故
 

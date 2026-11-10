@@ -48,7 +48,7 @@ void glBind*(GLenum target, GLuint object);       // 绑定/激活对象
 
 抽象管线（蓝色阶段为可编程着色器）：
 
-![图形渲染管线阶段](https://upload-images.jianshu.io/upload_images/1461575-8aac04e6175b9532.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700)
+![图形渲染管线阶段](../assets/1461575-8aac04e6175b9532.webp)
 
 1. **顶点着色器（Vertex Shader）**：输入单个顶点，主要把 3D 坐标变换到裁剪空间，也可处理顶点属性。
 2. **细分着色器（Tessellation Shader，可选）**：把图元细分为更多小图元，用于近距离时生成更平滑的几何。
@@ -227,7 +227,7 @@ VAO 记录：
 
 它**不记录** `GL_ARRAY_BUFFER` 的当前绑定。`glVertexAttribPointer` 在调用时把“当时绑定到 `GL_ARRAY_BUFFER` 的 VBO”记录进该属性的状态；之后解绑 `GL_ARRAY_BUFFER` 不会影响 VAO。
 
-![VAO 记录每个属性的数据来源、格式与启用状态](https://upload-images.jianshu.io/upload_images/1461575-1de2dad388a22dfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/546)
+![VAO 记录每个属性的数据来源、格式与启用状态](../assets/1461575-1de2dad388a22dfd.webp)
 
 创建与使用：
 
@@ -324,7 +324,7 @@ void glVertexAttribPointer(GLuint index, GLint size, GLenum type,
 
 顶点缓冲中位置数据的布局（3 个 `float` 紧密排列，第一个值位于缓冲起始处）：
 
-![顶点缓冲数据布局](https://upload-images.jianshu.io/upload_images/1461575-4c3285ce3b5665c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/666)
+![顶点缓冲数据布局](../assets/1461575-4c3285ce3b5665c7.webp)
 
 配套：
 
