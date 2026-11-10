@@ -157,7 +157,7 @@ int main()
 - 存储空间由一段段**等长的连续缓冲区**组成，各段之间不保证连续；
 - 用一个**指针数组**（通常称为 `map`，注意不是关联容器 `map`）记录每段缓冲区的首地址，从而在分段内存上维护"整体连续"的假象。
 
-<img src="../../技术笔记/assets/5860A21A703D41C9845996B0A796F08A.png" width="327" height="230">
+<img src="../assets/5860A21A703D41C9845996B0A796F08A.png" width="327" height="230">
 
 需要在头部或尾部增加空间时：
 
@@ -203,7 +203,7 @@ protected:
 };
 ```
 
-<img src="../../技术笔记/assets/524578389E0A4087B3AA934ADBA99FD5.png" width="444" height="370">
+<img src="../assets/524578389E0A4087B3AA934ADBA99FD5.png" width="444" height="370">
 
 `start` 和 `finish` 两个迭代器就足以描述整个 deque 的有效区间 `[start, finish)`。
 
@@ -337,7 +337,7 @@ C++11 将其纳入标准，但为了避免与已有代码冲突，采用了新�
 
 底层结构是 **hash table + bucket**：
 
-<img src="../../技术笔记/assets/41780173C0F245468B9AAC615BC2E3D5.png" width="620" height="346">
+<img src="../assets/41780173C0F245468B9AAC615BC2E3D5.png" width="620" height="346">
 
 插入过程：
 

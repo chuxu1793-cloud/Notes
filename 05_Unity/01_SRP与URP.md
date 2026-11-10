@@ -397,13 +397,13 @@ public ForwardRenderer(ForwardRendererData data) : base(data)
 
 URP 的调用链与方法职责可以用下面两张图对照（前者为单相机流程，后者为整体结构）：
 
-![](../../技术笔记/assets/294AF4BA96B14A939C720111AE045816.png)
+![](../assets/294AF4BA96B14A939C720111AE045816.png)
 
-![](../../技术笔记/assets/B0BC44FFD4684154AECB1EA0F433E829.png)
+![](../assets/B0BC44FFD4684154AECB1EA0F433E829.png)
 
 另一份笔记中的管线全景图（原属 Graphics/Rendering pipline 目录）：
 
-![](../../技术笔记/assets/5A2F5E57BC6F42D9AB50BCB2280E24E3.png)
+![](../assets/5A2F5E57BC6F42D9AB50BCB2280E24E3.png)
 
 ## 四、SRP Batcher
 
@@ -433,15 +433,15 @@ SRP Batcher 只在 SRP 下有效，Built-in 管线不支持。
 
 同一个 Shader 的三个球可以合成一个 SRP Batch：
 
-![](../../技术笔记/assets/WEBRESOURCE13b013296795387316a002a08c63bbb2.png)
+![](../assets/WEBRESOURCE13b013296795387316a002a08c63bbb2.png)
 
 用 `MaterialPropertyBlock` 改属性后不再合并（5 个球 5 个 call）：
 
-![](../../技术笔记/assets/WEBRESOURCE7c5273e1a26801fb2d4590b137e8498d.png)
+![](../assets/WEBRESOURCE7c5273e1a26801fb2d4590b137e8498d.png)
 
 如果中间插入一个其他材质的物体，合批会被打断——下图中粉色球把另外三个球分成了两段：
 
-![](../../技术笔记/assets/WEBRESOURCE29d17e9111797dc48157e6cd32481a65.png)
+![](../assets/WEBRESOURCE29d17e9111797dc48157e6cd32481a65.png)
 
 解决思路有两个：
 
@@ -496,7 +496,7 @@ SRP Batcher / Static Batching  >  GPU Instancing  >  Dynamic Batching
 
 排序示意：
 
-![](../../技术笔记/assets/WEBRESOURCE4471f0328b5f4336248cd6aed02ccc09.png)
+![](../assets/WEBRESOURCE4471f0328b5f4336248cd6aed02ccc09.png)
 
 （原图把分界写成 `RenderQueue < 2500` / `> 2500`，有误，已更正：不透明为 `≤ 2500`，透明从 `2501` 开始。）
 
@@ -759,13 +759,13 @@ SRP 的每个 Pass 可以自主决定是否 clear。若某个 Pass 没有任何�
 
 URP 中带 `Camera` 组件的 GameObject 还必须带 **Universal Additional Camera Data** 组件。项目使用 URP 时，新建 Camera 会自动添加（下图粉色标识）：
 
-![](../../技术笔记/assets/FB5309C9CE5B48D3B5C6210E13648522.png)
+![](../assets/FB5309C9CE5B48D3B5C6210E13648522.png)
 
 ### 10.2 Base Camera 与 Overlay Camera
 
 URP 的 Render Type 分两种：
 
-![](../../技术笔记/assets/70DB417B3BCA427CAA232B0C02C7D7D5.png)
+![](../assets/70DB417B3BCA427CAA232B0C02C7D7D5.png)
 
 - **Base Camera**：默认类型，可渲染到指定目标的通用相机。场景中至少要有一个 Base Camera 才能渲染任何东西。
 - **Overlay Camera**：把自己的视图叠加到另一个相机的输出之上，用于驾驶舱、UI 叠加等。
@@ -780,11 +780,11 @@ Camera Stack 把一个或多个 Overlay Camera 叠加到 Base Camera 上，并�
 2. 多个 Base Camera 或 Camera Stack 渲染到同一目标，做分屏；
 3. 把 Base Camera / Camera Stack 渲染到 RenderTexture，做 CCTV 监视器之类的效果。
 
-![](../../技术笔记/assets/AB517E18C2874A1AB25F30E302B905D6.png)
+![](../assets/AB517E18C2874A1AB25F30E302B905D6.png)
 
-![](../../技术笔记/assets/48A0C7CABD4C46BFADBBEE3222B7D264.png)
+![](../assets/48A0C7CABD4C46BFADBBEE3222B7D264.png)
 
-![](../../技术笔记/assets/B18F849A26F748678632DA2F6A3E1284.png)
+![](../assets/B18F849A26F748678632DA2F6A3E1284.png)
 
 ### 10.4 多相机渲染的实际行为（Base + Overlay）
 
@@ -795,7 +795,7 @@ Camera Stack 把一个或多个 Overlay Camera 叠加到 Base Camera 上，并�
 5. 后处理是相机属性，每个相机可独立开关；
 6. Overlay 相机没有 Output 属性，无法指定 Display，跟随其所属 Base Camera。
 
-![](../../技术笔记/assets/WEBRESOURCE1200712a7d0fd10c501b9321fe13fab0.png)
+![](../assets/WEBRESOURCE1200712a7d0fd10c501b9321fe13fab0.png)
 
 ### 10.5 相机与裁剪
 
@@ -864,9 +864,9 @@ Lightmapping Settings：
 
 模型默认可能已有三套 UV：
 
-![](../../技术笔记/assets/WEBRESOURCE4d25414ba5fcfbef9f9d443776915b75.png)
+![](../assets/WEBRESOURCE4d25414ba5fcfbef9f9d443776915b75.png)
 
-![](../../技术笔记/assets/WEBRESOURCE2df1192267f323b834b2937de5d888ad.png)
+![](../assets/WEBRESOURCE2df1192267f323b834b2937de5d888ad.png)
 
 UV2 是 lightmap UV。导入设置中勾选 **Generate Lightmap UV**，Unity 会重新生成一套覆盖 UV2。导入设置（Model 页）中的相关参数：
 
@@ -879,13 +879,13 @@ UV2 是 lightmap UV。导入设置中勾选 **Generate Lightmap UV**，Unity 会
   - Angle Error：`8`
   - Area Error：`15`
 
-![](../../技术笔记/assets/WEBRESOURCE3cc5c11cebfc21bb7f483cfa2ae60e2f.png)
+![](../assets/WEBRESOURCE3cc5c11cebfc21bb7f483cfa2ae60e2f.png)
 
 Unity 的自动 lightmap UV 生成（repacking）比较简单粗暴：按三角形的相对面积分配 UV，面积越大分到的 UV 范围越大，**无论该三角形是否可见都会分到 UV**。
 
 为了缩短烘焙时间、提高精度与表现，通常手动分 lightmap UV：给重要且可见的部分更大的 UV 范围，看不见或不重要的部分少分甚至不分。
 
-![](../../技术笔记/assets/WEBRESOURCE78ac2b2cda02e306b6f646d064fbfd7b.png)
+![](../assets/WEBRESOURCE78ac2b2cda02e306b6f646d064fbfd7b.png)
 
 （上图中舍弃了 [0,1] 之外的 UV。）
 
@@ -913,19 +913,19 @@ main
 
 烘焙得到 1024×1024 的 lightmap：
 
-![](../../技术笔记/assets/WEBRESOURCEa1cebb75a88210894c69380026d8bbdc.png)
+![](../assets/WEBRESOURCEa1cebb75a88210894c69380026d8bbdc.png)
 
 切到 Baked Lightmap 模式可以看到：1×1 的正方体每条边确实占 5 个像素。因为 Unity 自动 UV 是按比例分配的，所以地面、柱子、管道、楼梯只要实际长度是 1 单位，占用的像素数都一样：
 
-![](../../技术笔记/assets/WEBRESOURCE97a33247c31e6a1826d5fe81eaafe1e8.png)
+![](../assets/WEBRESOURCE97a33247c31e6a1826d5fe81eaafe1e8.png)
 
-![](../../技术笔记/assets/WEBRESOURCE17a5d574485132efad3a3d6b55b52c21.png)
+![](../assets/WEBRESOURCE17a5d574485132efad3a3d6b55b52c21.png)
 
 改用手动 UV 烘焙后，同样单位长度在不同部件上占用的像素不同——这就是手动分 UV 的价值：可以灵活决定模型各部分的全局光照精细度。
 
-![](../../技术笔记/assets/WEBRESOURCEea884f93b01977a3f59072c03f8c2abb.png)
+![](../assets/WEBRESOURCEea884f93b01977a3f59072c03f8c2abb.png)
 
-![](../../技术笔记/assets/WEBRESOURCEaa6dc69da802e5042f94bfa68897b8d0.png)
+![](../assets/WEBRESOURCEaa6dc69da802e5042f94bfa68897b8d0.png)
 
 ### 11.4 子图大小的估算过程
 
@@ -939,7 +939,7 @@ Unity 由自动 UV 烘焙时，子图大小的计算大致是：
 
 得到子图范围后会划分 UV charts：
 
-![](../../技术笔记/assets/WEBRESOURCE7c8d47220f90d1beeff2fda436da86f5.png)
+![](../assets/WEBRESOURCE7c8d47220f90d1beeff2fda436da86f5.png)
 
 UV chart 之间会预留边缘像素防止 bleeding。注意 `Lightmap Padding` 是**可配置参数**，并非固定 0.5 像素。
 

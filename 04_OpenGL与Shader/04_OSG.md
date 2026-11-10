@@ -362,7 +362,7 @@ class OSGDB_EXPORT FileCache : public osg::Referenced
 3. 构建 mapNode；
 4. 把节点加入场景树。
 
-![osgEarth 数据加载整体流程](../../技术笔记/assets/7D655E4557E643A88FD45705063BFC01.png)
+![osgEarth 数据加载整体流程](../assets/7D655E4557E643A88FD45705063BFC01.png)
 
 ### 3.2 读取 earth 文件
 
@@ -374,7 +374,7 @@ osgEarth 继承了 OSG 的插件机制，提供专门读取 earth 文件的 `osg
 
 读取影像、高程或普通模型都走同一套插件机制，区别只是插件与 `doRead` 的实现。
 
-![查找 earth 插件流程](../../技术笔记/assets/B42BC7C604A74D78818BFEE258BB1799.png)
+![查找 earth 插件流程](../assets/B42BC7C604A74D78818BFEE258BB1799.png)
 
 图中各环节的调用链（`ExampleResources.cpp` → `ReadFile.h/.cpp` → `Registry.cpp`）：
 
@@ -429,7 +429,7 @@ MapNodeHelper::load()                                          // ExampleResourc
 
 对应的 conf 结构如下：`map` 节点下按标签类型分出 `image`、`elevation`、`model`、`overlay`、`options` 等子节点，`model` 再向下分 `features`、`layout`，每个节点各自带 `name`/`driver`/`url` 等属性。
 
-![earth 文件转换后的 conf 结构](../../技术笔记/assets/AE5BF5E064B84D9B8C0B2C9C425AB094.png)
+![earth 文件转换后的 conf 结构](../assets/AE5BF5E064B84D9B8C0B2C9C425AB094.png)
 
 ### 3.3 构建 map
 
@@ -440,7 +440,7 @@ MapNodeHelper::load()                                          // ExampleResourc
 - 每个图层所需的 driver 插件；
 - 空间参考系 profile 等。
 
-![通过属性构造 map](../../技术笔记/assets/65AE119C0E9E442198EF7E1F5F75764D.png)
+![通过属性构造 map](../assets/65AE119C0E9E442198EF7E1F5F75764D.png)
 
 图中各环节的关键点（`EarthFileSerializer2.cpp` → `map.cpp`）：
 
@@ -472,9 +472,9 @@ ConfigSet masks        = conf.children("mask");
 
 在根据 map 的空间参考系设置 TerrainEngineNode 的坐标系和椭球模型时，会读取 map 的 `profile`。`Profile` 是确定数据空间信息的关键属性；若 options 中没有设置 profile，默认 SRS 为 **WGS84**。
 
-![构建 mapNode 第一步逻辑](../../技术笔记/assets/0A9DC2976D514497821A97D342EF8A0C.png)
+![构建 mapNode 第一步逻辑](../assets/0A9DC2976D514497821A97D342EF8A0C.png)
 
-![第一步详细流程](../../技术笔记/assets/B3C1C7A12B914DD6BB0AD4EDEC701C8A.png)
+![第一步详细流程](../assets/B3C1C7A12B914DD6BB0AD4EDEC701C8A.png)
 
 图中展开的代码要点（`MapNode.cpp` → `TerrainEngineNode.cpp`）：
 
@@ -529,9 +529,9 @@ _map->addMapCallback(new TerrainEngineNodeCallbackProxy(this));   // 处理 map 
 
 osgViewer 开始渲染、创建漫游、相机添加场景后，继续构建后续节点，并用 `TileKey` 管理四叉树。此时根据视点范围与距离，通过 OSG 的 `PagedLOD` 分页机制动态调度、选择加载区域瓦片。
 
-![构建 mapNode 第二步逻辑](../../技术笔记/assets/101531B007AE44C9A18669E15CF04315.png)
+![构建 mapNode 第二步逻辑](../assets/101531B007AE44C9A18669E15CF04315.png)
 
-![第二步详细流程](../../技术笔记/assets/2BE018BB9C6F43B6BCA14857B5E0EB65.png)
+![第二步详细流程](../assets/2BE018BB9C6F43B6BCA14857B5E0EB65.png)
 
 图中 `MpTerrainEngineNode.cpp` 的关键代码：
 
@@ -562,7 +562,7 @@ for (unsigned i = 0; i < keys.size(); ++i)
 - 用四叉树索引组织的 key（含范围信息）；
 - 该范围内的影像、高程等数据。
 
-![创建根节点逻辑](../../技术笔记/assets/70A54FD9581A46098B93477BDB98F047.png)
+![创建根节点逻辑](../assets/70A54FD9581A46098B93477BDB98F047.png)
 
 `createRootNode` 归纳为两件事：
 
@@ -571,7 +571,7 @@ for (unsigned i = 0; i < keys.size(); ++i)
 
 其中 `TileKey` 包含模型的空间信息，能决定数据在三维球上的正确位置；`PagedLOD` 根据视点范围决定加载哪些节点。
 
-![createRootNode 流程](../../技术笔记/assets/D7AEBE37E75E42EBBDD0F5432AD51199.png)
+![createRootNode 流程](../assets/D7AEBE37E75E42EBBDD0F5432AD51199.png)
 
 图中 `SerialKeyNodeFactory.cpp` → `NodeFactory.cpp` → `TileModelFactory.cpp` 的代码要点：
 
@@ -619,7 +619,7 @@ build.execute();                              // 读取高程，构建四叉树�
 
 在创建影像图层与高程图层时，相应 `execute` 函数分别调用 `createImage()` 与 `createHeightfields()`；这两个函数根据数据 option 调用对应 driver 插件，完成真正的数据读取。**若要编写自定义影像/高程插件，必须重载这两个函数。**
 
-![GeoLocator 的空间信息处理](../../技术笔记/assets/B8610883336D4F28A5697BFA68F43833.png)
+![GeoLocator 的空间信息处理](../assets/B8610883336D4F28A5697BFA68F43833.png)
 
 图中 `Locators.cpp` 的流程与代码：
 
@@ -652,7 +652,7 @@ getTransformFromExtents(double minX, double minY, double maxX, double maxY)
 
 > 更细的流程图见原笔记附件 `osgEarth数据加载流程PNG.md` 中的大图（即下图，原为 CSDN 文章《osgEarth数据加载及组织解析》的整页长截图）。
 
-![osgEarth 数据加载流程总图](../../技术笔记/assets/902D69B583C74B228DBDAEB819667095.png)
+![osgEarth 数据加载流程总图](../assets/902D69B583C74B228DBDAEB819667095.png)
 
 > 上图是原文网页的整页长截图（含正文 1.1–1.4、2.1–2.3 及图 3.1–图 3.16、表 3.1），属于“图文混排长图”，故保留原图；其中的文字内容已完整体现在本节第 3、4 章，不再逐段重复转写。阅读时注意：截图中的“图 3.x”编号是本节的编号来源，图 3.13–3.16 分别对应 ECEF 坐标系、瓦片分层 LOD、缓存文件夹、cacheId 计算流程。
 
@@ -691,7 +691,7 @@ osgEarth 支持三类：
 2. **投影坐标系（Projected）**：把三维区域投影到二维 `(X, Y)` 平面，如 UTM、墨卡托。
 3. **ECEF（Earth Centered Earth Fixed）**：标准的地心地固三维笛卡尔坐标系（osgEarth 内置实现），原点在球心，`X` 轴指向经纬度 `(0,0)`，`Y` 轴指向**东经 90°**（`(90,0)`，右手系下即 `X` 轴绕 `Z` 轴逆时针转 90°），`Z` 轴指向北极。其轴向与 OSG 世界坐标系一致。
 
-![ECEF 坐标系](../../技术笔记/assets/0D4A5939AD4C42B0B810BFE9C9F55985.png)
+![ECEF 坐标系](../assets/0D4A5939AD4C42B0B810BFE9C9F55985.png)
 
 #### 4.1.2 水平基准面
 
@@ -757,7 +757,7 @@ osgEarth 实时建立分层瓦片集进行渲染。它通过记录 SRS 与范围
 - 当瓦片大小小于“视点到瓦片的距离”对应的阈值时，不再继续细分。
 - 数据源在该范围内有数据才加载该瓦片，因此总加载块数受数据覆盖范围限制。
 
-![瓦片分层 LOD 与 TileKey](../../技术笔记/assets/DDC5AC29E4CD4D7DA5BFB7AA2F18489A.png)
+![瓦片分层 LOD 与 TileKey](../assets/DDC5AC29E4CD4D7DA5BFB7AA2F18489A.png)
 
 ### 4.3 缓存编码
 
@@ -779,9 +779,9 @@ osgEarth 支持把网络数据提前缓存到本地，加速后续访问。缓�
 - **cacheId**：在解析 conf、构建 map 时计算。只取 map 的 layer 中 TileSource 的 conf 属性，写成 JSON，再用 **MurmurHash** 压缩成字符串。
 - **horizSignature**：在构建 mapNode、获取 map 的 profile 时计算。取能确定空间信息的水平基准、垂直基准、地图范围、`numTilesWideAtLod0`、`numTilesHighAtLod0` 等属性，同样写成 JSON 后用 MurmurHash 压缩。
 
-![缓存文件夹结构](../../技术笔记/assets/1DAC5250A3374A39ACD335C381A92D65.png)
+![缓存文件夹结构](../assets/1DAC5250A3374A39ACD335C381A92D65.png)
 
-![cacheId 计算流程](../../技术笔记/assets/94676F83F1324F429FA032B34BCC6971.png)
+![cacheId 计算流程](../assets/94676F83F1324F429FA032B34BCC6971.png)
 
 图中 cacheId 的计算代码：
 

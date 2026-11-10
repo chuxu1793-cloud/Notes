@@ -382,7 +382,7 @@ PBR 的优点：
 3. 接口简单直观，不是奇怪的经验参数；
 4. 容易解决问题与扩展功能。
 
-<img src="../../技术笔记/assets/FE670818219F4901B018014BD98B682C.jpg" width="620" height="159">
+<img src="../assets/FE670818219F4901B018014BD98B682C.jpg" width="620" height="159">
 
 ### 8.2 间接光照的两条路径
 
@@ -559,11 +559,11 @@ depth *= _ProjectionParams.w;   // -> [0, 1]
 
 这个 `d` 就是深度图中的值。它是**非线性**的：近处精度高、远处精度低。
 
-<img src="../../技术笔记/assets/DB61C51D1C784170A0D9BC671D43B404.png" width="620" height="286">
+<img src="../assets/DB61C51D1C784170A0D9BC671D43B404.png" width="620" height="286">
 
 <div align="center">投影矩阵</div>
 
-<img src="../../技术笔记/assets/37F416AA65F040048103CDC5B245D08A.png" width="620" height="286">
+<img src="../assets/37F416AA65F040048103CDC5B245D08A.png" width="620" height="286">
 
 <div align="center">顶点 P 的投影变换</div>
 
@@ -657,7 +657,7 @@ inline float DecodeFloatRGBA(float4 rgba)
 
 **精度说明（易错点）**：理论上 4 个 8 位通道可表示 `255^4 ≈ 4.2e9` 个台阶，但编解码全程使用 float32，尾数只有 23 位（含隐含位 24 位），因此**实际有效精度约为 24 位左右**，而不是 32 位。当 `v` 接近 1 时，高位通道的小数部分已接近 float32 的分辨率极限，低位通道提供的信息会被舍入误差吞掉。需要更高精度时应直接使用 `R32F` 或 `R32_UINT` 深度纹理。
 
-<img src="../../技术笔记/assets/WEBRESOURCEf4411f83185cb16c4b0389ba4158cfa3.png" width="548" height="1398">
+<img src="../assets/WEBRESOURCEf4411f83185cb16c4b0389ba4158cfa3.png" width="548" height="1398">
 
 ## 12. 顶点输入 position 用 float3 还是 float4
 
@@ -680,7 +680,7 @@ struct appdata
 
 汇编上的表现是输入声明与寄存器占用不同：`float3` 版本只声明 3 个分量，`float4` 版本占满一个 4 分量输入寄存器。对绝大多数模型，顶点 w 均为 1，因此两者计算结果一致，`float3` 更省寄存器；只有在自定义网格、需要顶点 w 参与变换（例如某些投影/扭曲效果）时才必须用 `float4`。
 
-<img src="../../技术笔记/assets/7E5058C0B08741388BDEDC900ED7C60A.png" width="620" height="313">
+<img src="../assets/7E5058C0B08741388BDEDC900ED7C60A.png" width="620" height="313">
 
 （待核实：不同图形 API 与编译器对缺失 w 的处理是否严格为常量 1.0，D3D11 与 Metal 在部分版本上的汇编表现略有差异。）
 
@@ -758,15 +758,15 @@ Shader.DisableKeyword("_GLOBAL_FOG");
 - 但**不要依赖编译器消除有副作用的计算**（如 `tex2D` 采样、`ddx/ddy`），这些不会被当作纯表达式删除；
 - 把 `0` 因子的分支提前，可以让整条链路被折叠掉，这是做 feature 开关时"零成本"的来源。
 
-<img src="../../技术笔记/assets/WEBRESOURCEc07504b3e6969ea267e5c6b58d865401.png" width="672" height="321">
+<img src="../assets/WEBRESOURCEc07504b3e6969ea267e5c6b58d865401.png" width="672" height="321">
 
-<img src="../../技术笔记/assets/WEBRESOURCE4a1b5a6eb2d6a7bfc8102df6da280bd0.png" width="1038" height="182">
+<img src="../assets/WEBRESOURCE4a1b5a6eb2d6a7bfc8102df6da280bd0.png" width="1038" height="182">
 
-<img src="../../技术笔记/assets/WEBRESOURCE107984806327d25152ff87f17f993f22.png" width="817" height="303">
+<img src="../assets/WEBRESOURCE107984806327d25152ff87f17f993f22.png" width="817" height="303">
 
-<img src="../../技术笔记/assets/WEBRESOURCE68130cf14b56f643be1b975d72a28cee.png" width="1035" height="571">
+<img src="../assets/WEBRESOURCE68130cf14b56f643be1b975d72a28cee.png" width="1035" height="571">
 
-<img src="../../技术笔记/assets/WEBRESOURCE46e8f8b0a20e0c0667561493d0f56b73.png" width="994" height="324">
+<img src="../assets/WEBRESOURCE46e8f8b0a20e0c0667561493d0f56b73.png" width="994" height="324">
 
 ## 15. GPU Instancing
 
@@ -862,7 +862,7 @@ Graphics.DrawMeshInstanced(mesh, 0, material, matrices, count, block);
    - 材质被修改（产生材质变体）；
    - 需要按深度排序（透明物体）。
 
-<img src="../../技术笔记/assets/A03AD3545DD64256800FF857DE87B62C.png" width="620" height="566">
+<img src="../assets/A03AD3545DD64256800FF857DE87B62C.png" width="620" height="566">
 
 ## 16. Compute Shader
 
@@ -914,7 +914,7 @@ uint ScreenID2BufferIdx(uint2 id)
 
 - Dispatch 的线程组 / 线程 ID 是**抽象索引，没有朝向语义**：`id.x`、`id.y` 只是索引编号，往纹理或 RT 写数据时坐标原点由平台与 API 约定决定，需要时自行翻转 y。
 
-<img src="../../技术笔记/assets/WEBRESOURCEd18f3368135e1b1139a66eebd87da199.png">
+<img src="../assets/WEBRESOURCEd18f3368135e1b1139a66eebd87da199.png">
 
 ## 17. Unity 中的 Cubemap 实现
 

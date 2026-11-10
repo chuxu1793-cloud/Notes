@@ -91,7 +91,7 @@ $$
 
 其中 $\theta$ 为极角（与 $n$ 的夹角），$\phi$ 为方位角。整个球面的立体角为 $4\pi$，半球为 $2\pi$。单位是球面度 sr。
 
-![](../../技术笔记/assets/WEBRESOURCE31bea57ec888b2bdc31bdce7025b33cb.jpg)
+![](../assets/WEBRESOURCE31bea57ec888b2bdc31bdce7025b33cb.jpg)
 
 ### 2.2 五个核心量
 
@@ -187,32 +187,32 @@ albedo 的严格定义是"反射的辐射通量与入射辐射通量之比"，�
 - 均匀介质（homogeneous media）：内部折射率处处相同，光沿直线传播，只有随距离的强度衰减（吸收），方向与颜色关系由吸收谱决定。
 - 非均匀介质（heterogeneous media）：折射率突变处发生散射，光被分配到多个方向，但总能量不变。
 
-![](../../技术笔记/assets/1B22433B6B0747D282EE9173CE57B211.jpg)
-![](../../技术笔记/assets/EE1BD06A65CF49C0A19D4AE38DC6E114.jpg)
-![](../../技术笔记/assets/7B5A0645E9344EF494355D60FFB2EE51.jpg)
+![](../assets/1B22433B6B0747D282EE9173CE57B211.jpg)
+![](../assets/EE1BD06A65CF49C0A19D4AE38DC6E114.jpg)
+![](../assets/7B5A0645E9344EF494355D60FFB2EE51.jpg)
 
 ### 4.2 光与表面的交互
 
 光到达表面时分为两部分：**反射（specular）** 与 **折射（进入介质内部）**。
 
-![](../../技术笔记/assets/2863D95B53F943B7B6CA0C05F1B89D83.jpg)
-![](../../技术笔记/assets/D4D40F5823DB4AEA84E547EA893D83BD.png)
+![](../assets/2863D95B53F943B7B6CA0C05F1B89D83.jpg)
+![](../assets/D4D40F5823DB4AEA84E547EA893D83BD.png)
 
 - 折射进入内部的光，一部分被吸收转化为热，一部分在内部多次散射后从表面重新射出——这部分宏观上表现为 **diffuse**，其颜色就是 albedo。
 - 直接在表面反射的部分表现为 **specular**。
 
-![](../../技术笔记/assets/D8356107A0594F0CB775D98BB3DB1F78.png)
-![](../../技术笔记/assets/65EC0EAFC8AF44EAB7861AF9EEC4AD19.jpg)
+![](../assets/D8356107A0594F0CB775D98BB3DB1F78.png)
+![](../assets/65EC0EAFC8AF44EAB7861AF9EEC4AD19.jpg)
 
 ### 4.3 光学平面与微几何体
 
 只有理想的光学平面（镜子、镜头表面）才服从镜面反射定律。真实表面是 **microgeometry**：起伏尺度大于可见光波长、又小于一个像素，因此把它建模为"大量微小光学平面的集合"，可见光反射是这些微平面各自反射的统计结果。
 
-![](../../技术笔记/assets/38825AF3FEDA4C80876267A982D3D272.png)
+![](../assets/38825AF3FEDA4C80876267A982D3D272.png)
 
 表面越平滑，微平面朝向变化越小，反射方向越集中（清晰反射）；表面越粗糙，朝向分布越宽，反射被扩散（模糊反射）。
 
-![](../../技术笔记/assets/982D10F1EF224948A166DF80E907AF8A.jpg)
+![](../assets/982D10F1EF224948A166DF80E907AF8A.jpg)
 
 ### 4.4 金属与电介质（绝缘体）
 
@@ -220,10 +220,10 @@ albedo 的严格定义是"反射的辐射通量与入射辐射通量之比"，�
 - **非金属（电介质/绝缘体）**：折射光在内部吸收与散射，一部分重新射出形成 diffuse；反射基本无色（本色由 diffuse 体现）。
 - 半导体在渲染中出现频率低，通常直接并入"非金属"处理。
 
-![](../../技术笔记/assets/E8CE9BA2463946CDBE90A9AA596C0761.png)
-![](../../技术笔记/assets/EB24FB18682C4E58BDEA17DCC1789787.png)
+![](../assets/E8CE9BA2463946CDBE90A9AA596C0761.png)
+![](../assets/EB24FB18682C4E58BDEA17DCC1789787.png)
 
-![](../../技术笔记/assets/033FB725BF07497F8F68950C1054809C.jpg)
+![](../assets/033FB725BF07497F8F68950C1054809C.jpg)
 
 > 修正：早期笔记写"金属反射率 60%~90%，绝缘体 0%~20%"，这组数字应理解为 **F0（垂直入射反射率）**：导体约 0.5~1.0（部分金属更高），电介质约 0.02~0.08，个别材料（晶体、半导体）可到 0.15~0.5。不是"总反射率"。
 
@@ -234,8 +234,8 @@ albedo 的严格定义是"反射的辐射通量与入射辐射通量之比"，�
 - 像素尺寸 ≫ 散射距离：出射点可认为与入射点重合 → 就是普通 diffuse。
 - 像素尺寸 ≪ 散射距离：一个像素的着色会受到邻近点入射光的影响 → 需要专门的 SSS 技术。
 
-![](../../技术笔记/assets/342F4086F676477BB06815EFB3DE56D8.png)
-![](../../技术笔记/assets/0C987545EA574607B808FACFCD34F4C7.png)
+![](../assets/342F4086F676477BB06815EFB3DE56D8.png)
+![](../assets/0C987545EA574607B808FACFCD34F4C7.png)
 
 两者是同一物理现象的不同尺度近似：远看皮肤是 diffuse，近看皮肤是 SSS。
 
@@ -281,7 +281,7 @@ $$
 
 **归一化约束**：把微平面面积投影回宏观平面，必须等于宏观面积（约定为 1），即 $\int_{\Omega} D(m)\,(n\cdot m)\,d\omega_m=1$。完整的推导、推广到任意方向 $v$ 的形式（$\int D(m)(v\cdot m)d\omega_m=v\cdot n$）与四条基本性质见 **§11.1–11.2**，此处不再重复。
 
-![](../../技术笔记/assets/6054CEE174474A248668A8E7DE39BB29.png)
+![](../assets/6054CEE174474A248668A8E7DE39BB29.png)
 
 **常见 NDF**（$\alpha$ 为粗糙度参数，$n\cdot h$ 记为 $\cos\theta_h$）：
 
@@ -306,7 +306,7 @@ $$
 \alpha = r^2,\quad r \in [0,1] \text{ 为美术可见的 roughness}
 $$
 
-![](../../技术笔记/assets/150958D58CAA4B00B8DB766A4D8C1F47.jpg)
+![](../assets/150958D58CAA4B00B8DB766A4D8C1F47.jpg)
 
 $$
 D(n,h,\alpha) = \frac{\alpha^2}{\pi\left((n\cdot h)^2(\alpha^2-1)+1\right)^2}
@@ -373,8 +373,8 @@ float D_GTR2(float alpha, float NoH)
 
 > 命名陷阱：不同实现里 `a` / `alpha` 的含义不一致。有的实现先算 `alpha = roughness*roughness` 再直接代入 $\alpha$；有的（如上面的 `DistributionGGX`）把 perceptual roughness 直接当参数传进去、内部平方两次得到 $\alpha^2$。只要保证"公式里的 $\alpha$ 等于 roughness$^2$"就一致；若把 roughness 传进一个假定参数已是 $\alpha$ 的函数（或反过来），会多/少一次平方，高光会整体过锐或过糊。
 
-![](../../技术笔记/assets/2A33392501E54F7CB8E1BE201786120D.jpg)
-![](../../技术笔记/assets/1DF38C9F270F4FA5AF48D4467064088B.jpg)
+![](../assets/2A33392501E54F7CB8E1BE201786120D.jpg)
+![](../assets/1DF38C9F270F4FA5AF48D4467064088B.jpg)
 
 > 主流 NDF 在形状控制、粗粒度微观结构与单次散射上的三条局限，统一放在 **§11.6** 讨论。
 
@@ -385,10 +385,10 @@ float D_GTR2(float alpha, float NoH)
 - **几何障碍（obstruction / masking in）**：入射光在到达目标微平面前被别的微平面挡住；
 - **几何遮蔽（shadowing / masking out）**：反射光在离开表面前被别的微平面挡住。
 
-![](../../技术笔记/assets/EDC7A9D470AD4904B4B0574579F37D6C.jpg)
-![](../../技术笔记/assets/93371DAC8BA149728E481133A4A7BC05.png)
-![](../../技术笔记/assets/930395727FE8491D938E658621821703.jpg)
-![](../../技术笔记/assets/0DF9EFFA25564A4EA13A3C3C784ED04E.jpg)
+![](../assets/EDC7A9D470AD4904B4B0574579F37D6C.jpg)
+![](../assets/93371DAC8BA149728E481133A4A7BC05.png)
+![](../assets/930395727FE8491D938E658621821703.jpg)
+![](../assets/0DF9EFFA25564A4EA13A3C3C784ED04E.jpg)
 
 $G$ 输出 0~1：0 表示完全遮挡，1 表示完全无遮挡。Smith 方法把两个方向的遮蔽拆成独立的一维函数：
 
@@ -452,7 +452,7 @@ $$
 $$
 F_0 = \left(\frac{\eta_1-\eta_2}{\eta_1+\eta_2}\right)^2 = \left(\frac{\eta-1}{\eta+1}\right)^2
 $$
-![](../../技术笔记/assets/ACE7A18BBDCA491BA37E55F987427CCA.jpg)
+![](../assets/ACE7A18BBDCA491BA37E55F987427CCA.jpg)
 
 ### 6.2 折射率 IOR
 
@@ -464,7 +464,7 @@ $$
 
 常见值：空气 1.000277（标准温压 15 °C、101.325 kPa；近似常写作 1.0003）、水 1.333、玻璃约 1.5、钻石 2.42。介质越"密"，光越慢，进入时向法线偏折，离开时远离法线。复数折射率的实部决定速度，虚部决定吸收（金属的消光系数）。
 
-![](../../技术笔记/assets/E95193413802492394233BDDD82E6FCD.webp)
+![](../assets/E95193413802492394233BDDD82E6FCD.webp)
 
 式中 $c$ 为真空中的光速（speed of light in vacuum），$v$ 为光在该介质中的相速度（phase velocity of light in the medium）。
 
@@ -523,9 +523,9 @@ vec3 fresnelSchlick(float cosTheta, vec3 F0)
 | 电介质（绝缘体） | 0.02 ~ 0.08（约 0.04） | 否（灰/白） | 有 |
 | 导体（金属） | 0.5 ~ 1.0 | 是（金/铜/银各异） | 基本没有 |
 
-![](../../技术笔记/assets/27601ADB37024371AB1D1CB4B8A8282E.jpg)
-![](../../技术笔记/assets/C0A227DA644B4FA7B4830D56E35D23E1.jpg)
-![](../../技术笔记/assets/80F6F166A89A45708DA3A324249C255F.jpg)
+![](../assets/27601ADB37024371AB1D1CB4B8A8282E.jpg)
+![](../assets/C0A227DA644B4FA7B4830D56E35D23E1.jpg)
+![](../assets/80F6F166A89A45708DA3A324249C255F.jpg)
 
 下表给出不同材质垂直入射（$0^\circ$）时的 $F_0$（线性值与 sRGB 编码值；原图另有 Color 色块列，略）：
 
@@ -585,11 +585,11 @@ vec3 kD = (vec3(1.0) - kS) * (1.0 - metallic);
 
 只把高光变亮、不按粗糙度归一化，会导致粗糙表面反射的总能量凭空增加。做法是在 BRDF 中加入归一化因子，使 $D$ 满足 5.2 的积分约束。直观结果：粗糙度升高时高光范围扩大、峰值降低，总能量不变——"高光半径放大 10 倍，亮度大约降到 1/100"。
 
-![](../../技术笔记/assets/B0345972617A46BF8325EF01890FF786.jpg)
-![](../../技术笔记/assets/8C94302A5D1A41C281FBAB0316941438.jpg)
-![](../../技术笔记/assets/1A0DC84E26DE434FBA11B4D4617F1227.jpg)
-![](../../技术笔记/assets/2D3E910B266A481C8A056220B51CCD0B.png)
-![](../../技术笔记/assets/8DE7BEA5A4AA43ACBFBCD447C896E634.jpg)
+![](../assets/B0345972617A46BF8325EF01890FF786.jpg)
+![](../assets/8C94302A5D1A41C281FBAB0316941438.jpg)
+![](../assets/1A0DC84E26DE434FBA11B4D4617F1227.jpg)
+![](../assets/2D3E910B266A481C8A056220B51CCD0B.png)
+![](../assets/8DE7BEA5A4AA43ACBFBCD447C896E634.jpg)
 
 $G$ 项也是能量守恒的基础之一：它让被遮挡的反射光不会计入出射能量。
 
@@ -620,7 +620,7 @@ $$
 L_o = L_e + \sum_{k} f_r(\omega_{i,k},\omega_o)\,L_{i,k}\,(n\cdot\omega_{i,k})
 $$
 
-![](../../技术笔记/assets/DB45C15DBCB343A398914F2B63DA593F.jpg)
+![](../assets/DB45C15DBCB343A398914F2B63DA593F.jpg)
 
 ### 8.2 从点光源到面光源到场景
 
@@ -652,9 +652,9 @@ $$
 
 下图依次是同一场景的**直接光照**、**一次弹射全局光照**（direct + indirect）与**两次弹射全局光照**的渲染结果：
 
-![](../../技术笔记/assets/9BE566B631C74A089D3DB574F18FB1B5.jpg)
-![](../../技术笔记/assets/0958D910E6CA4457AB72193294CD6B03.jpg)
-![](../../技术笔记/assets/8A92D91FFDFA4B96B9223295AD22C622.jpg)
+![](../assets/9BE566B631C74A089D3DB574F18FB1B5.jpg)
+![](../assets/0958D910E6CA4457AB72193294CD6B03.jpg)
+![](../assets/8A92D91FFDFA4B96B9223295AD22C622.jpg)
 
 ---
 

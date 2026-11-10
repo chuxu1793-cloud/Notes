@@ -415,11 +415,11 @@ void main() {
 }
 ```
 
-<img src="../../技术笔记/assets/613D34683662444796326C9386054D4B.png" width="620" height="349">
+<img src="../assets/613D34683662444796326C9386054D4B.png" width="620" height="349">
 
 把判定区间从 `[0.98, 1.0]` 改成 `[0.09, 0.11]`，高亮带就从右侧/上方移到靠近原点处，这验证了原点在左下角、y 向上：
 
-<img src="../../技术笔记/assets/6940226288794776B504D54389881EF8.png" width="620" height="349">
+<img src="../assets/6940226288794776B504D54389881EF8.png" width="620" height="349">
 
 想要以屏幕中心为原点、纵向归一化，常用：
 
@@ -470,9 +470,9 @@ fixed4 frag (v2f i) : SV_Target
 
 反转深度的好处是近处精度更高（浮点分布更合理），代价是所有手写深度比较都要注意方向（`ZTest LEqual` vs `GEqual`）。Unity 的 `LinearEyeDepth` / `Linear01Depth` 已经处理了这层差异。
 
-<img src="../../技术笔记/assets/WEBRESOURCE32473aec2bb9ebfcdec8846e08c7526e.png">
+<img src="../assets/WEBRESOURCE32473aec2bb9ebfcdec8846e08c7526e.png">
 
-<img src="../../技术笔记/assets/WEBRESOURCE70456f53907878f1719220b0a2c25af3.png">
+<img src="../assets/WEBRESOURCE70456f53907878f1719220b0a2c25af3.png">
 
 ## 四、内建函数
 

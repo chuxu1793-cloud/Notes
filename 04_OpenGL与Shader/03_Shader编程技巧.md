@@ -504,7 +504,7 @@ if (st.y > 0.0 && st.y < 0.02) color = lineColor;
 gl_FragColor = vec4(color, 1.0);
 ```
 
-<img src="../../技术笔记/assets/WEBRESOURCE05cc024c77d8e304d6759910c599db79.png">
+<img src="../assets/WEBRESOURCE05cc024c77d8e304d6759910c599db79.png">
 
 **② `step` 相减**
 
@@ -517,11 +517,11 @@ color = mix(color, lineColor, pct);
 
 直接相加会得到「背景 + 线色」的错误亮度，因为原笔记里 `color = color + lineColor * pct` 没有先扣除背景：
 
-<img src="../../技术笔记/assets/WEBRESOURCEd61088a10413ed7924d867fb59f6e24b.png">
+<img src="../assets/WEBRESOURCEd61088a10413ed7924d867fb59f6e24b.png">
 
 改成 `mix` 后与条件判断结果一致：
 
-<img src="../../技术笔记/assets/WEBRESOURCE04a9cc1b7068585a17668d0f08e05162.png">
+<img src="../assets/WEBRESOURCE04a9cc1b7068585a17668d0f08e05162.png">
 
 **③ `smoothstep` 相减**
 
@@ -534,9 +534,9 @@ pct = pow(smoothstep(0.0, 0.01, st.y), 10.0)
     - pow(smoothstep(0.01, 0.02, st.y), 10.0);
 ```
 
-<img src="../../技术笔记/assets/WEBRESOURCE7ddadc2aa5c9330abec209794274a46a.png">
+<img src="../assets/WEBRESOURCE7ddadc2aa5c9330abec209794274a46a.png">
 
-<img src="../../技术笔记/assets/WEBRESOURCE966672c52643941ad7122535400c9443.png">
+<img src="../assets/WEBRESOURCE966672c52643941ad7122535400c9443.png">
 
 原笔记说「smoothstep 在区间内返回线性插值」是**错的**：它返回的是 Hermite 平滑插值 `3t² - 2t³`，所以边缘是软的而非线性的；这也正是它能抗锯齿的原因。
 
@@ -552,7 +552,7 @@ pct = smoothstep(0.2, 0.21, st.x) - smoothstep(0.21, 0.22, st.x);
 color = mix(color, lineColor, pct);
 ```
 
-<img src="../../技术笔记/assets/WEBRESOURCEec918cf383f59dd325a6d79f22702311.png">
+<img src="../assets/WEBRESOURCEec918cf383f59dd325a6d79f22702311.png">
 
 ### 7.3 斜线
 
@@ -575,9 +575,9 @@ float lineKxSmooth(vec2 st, float k, float t, float lineWidth)
 }
 ```
 
-<img src="../../技术笔记/assets/WEBRESOURCEc398284f8277b44d4da3dc76f2cc04ab.png">
+<img src="../assets/WEBRESOURCEc398284f8277b44d4da3dc76f2cc04ab.png">
 
-<img src="../../技术笔记/assets/WEBRESOURCEe7e6ce99394653e1e6c93d807c9bd9f4.png">
+<img src="../assets/WEBRESOURCEe7e6ce99394653e1e6c93d807c9bd9f4.png">
 
 注意 `step(y, st.y)` 的参数顺序是 `step(edge, x)`：这里 `edge = y`、`x = st.y`，表示「st.y 在直线之上」。顺序写反是这类代码最常见的 bug。
 
@@ -608,9 +608,9 @@ float lineSegment(vec2 st, vec2 a, vec2 b, float lineWidth)
 
 原笔记的版本用 `acos(dot(u,v)/(|u||v|))` 再 `sin(angle)*|v|` 求距离，数学上等价于叉积，但多了两次 `length`、一次 `acos`、一次 `sin`，而且 `acos` 的输入可能因浮点误差超出 `[-1,1]` 产生 NaN。叉积版本更快更稳。
 
-<img src="../../技术笔记/assets/WEBRESOURCE6b0a0297c4049b3e272ba4eae9dbd7d5.png">
+<img src="../assets/WEBRESOURCE6b0a0297c4049b3e272ba4eae9dbd7d5.png">
 
-<img src="../../技术笔记/assets/WEBRESOURCE9fe879326445ecea13f85c59cdd61e56.png">
+<img src="../assets/WEBRESOURCE9fe879326445ecea13f85c59cdd61e56.png">
 
 原笔记中「点乘结果大于 0 小于 1 表示方向相同」的说法也不严谨：点乘结果是长度乘积乘余弦，与「1」没有可比性；判断同向只需 `> 0`。
 
@@ -640,9 +640,9 @@ float powLine(vec2 st, float lineWidth)
 }
 ```
 
-<img src="../../技术笔记/assets/WEBRESOURCEad028cd798513c88245b6cec4c43cf89.png">
+<img src="../assets/WEBRESOURCEad028cd798513c88245b6cec4c43cf89.png">
 
-<img src="../../技术笔记/assets/WEBRESOURCE5aed7a37790e08278b8582fdff5def54.png">
+<img src="../assets/WEBRESOURCE5aed7a37790e08278b8582fdff5def54.png">
 
 圆环同理，用 `distance(st, center)` 作为阈值：
 
@@ -701,7 +701,7 @@ void ArrowAnimation()
 - 用「乘积 > 0」判断区间，比两次比较更省指令，也不会引入分支。
 - 原笔记里 `clip` 写了两遍、外圈颜色分支被注释掉，属于调试残留；上面的版本是它的等价整理。
 
-<img src="../../技术笔记/assets/WEBRESOURCE7775c1485f1a10f09b6becea12113a6c.png">
+<img src="../assets/WEBRESOURCE7775c1485f1a10f09b6becea12113a6c.png">
 
 ## 九、Flipbook node
 
@@ -725,7 +725,7 @@ float2 FlipbookUV(float2 uv, float2 size /*width,height*/, float tile)
 - 时间驱动：`tile = floor(_Time.y * fps) % (width * height)`，取模保证循环。
 - Shader Graph 的 Flipbook 节点还有一个 `Time` 输入与 `Invert Y` 选项，本质与上式相同。
 
-<img src="../../技术笔记/assets/WEBRESOURCE20c18abbb3253a8388845ba071608dc4.gif">
+<img src="../assets/WEBRESOURCE20c18abbb3253a8388845ba071608dc4.gif">
 
 动图内容（文字已转录，图保留）：Shader Graph 中的 `Flipbook` 节点，输入 `UV = UV0`、`Width = 2`、`Height = 2`，`Tile` 从 `0.03` 递增到 `17.6` 播放这张 2×2 图集；`Invert X`、`Invert Y` 均**未**勾选（即按默认 y 从上往下采样，画面上下颠倒）。左侧 `Sample Texture 2D` 的 UV 取自 `Flipbook` 的 `Out(2)`，右侧 `Sample Texture 2D` 直接接 `UV0` 作为对照。
 
@@ -879,7 +879,7 @@ float smoothstep(float e0, float e1, float x)
 - `e0 >= e1` 未定义；要反向渐变请写 `1.0 - smoothstep(lo, hi, x)`。
 - `e0 == e1` 会除零。
 
-<img src="../../技术笔记/assets/WEBRESOURCE41a35114960902f3bd90ed0da922e7e7.png" width="581" height="621">
+<img src="../assets/WEBRESOURCE41a35114960902f3bd90ed0da922e7e7.png" width="581" height="621">
 
 ### 11.2 常用模式
 
@@ -890,7 +890,7 @@ float d = length(uv - 0.5);
 float mask = 1.0 - smoothstep(0.2, 0.5, d);   // 内 1 外 0
 ```
 
-<img src="../../技术笔记/assets/WEBRESOURCEd00236b5e5236795bd50c3c303675f8d.png">
+<img src="../assets/WEBRESOURCEd00236b5e5236795bd50c3c303675f8d.png">
 
 **圆环 / 描边**：两个 smoothstep 相减
 
@@ -900,7 +900,7 @@ float s2 = smoothstep(0.3, 0.4, d);
 float ring = s1 - s2;      // 只保留 [0.2, 0.4] 的环带
 ```
 
-<img src="../../技术笔记/assets/WEBRESOURCE0e432f424c07306f62f6559c4b09e3af.png">
+<img src="../assets/WEBRESOURCE0e432f424c07306f62f6559c4b09e3af.png">
 
 **程序化扫描线**（替代一张条纹贴图，省一次采样）
 
@@ -917,9 +917,9 @@ void ApplyScanline(inout half4 color, half3 positionWS)
 }
 ```
 
-<img src="../../技术笔记/assets/WEBRESOURCE2c8209ce02243a22de77a35a9891990e.png">
+<img src="../assets/WEBRESOURCE2c8209ce02243a22de77a35a9891990e.png">
 
-<img src="../../技术笔记/assets/WEBRESOURCE12a56a10e620f350698e47334aae87d8.png">
+<img src="../assets/WEBRESOURCE12a56a10e620f350698e47334aae87d8.png">
 
 **做法对比**：左边是程序生成，右边是纹理采样。程序化版本没有采样、没有 mip、分辨率无关，但参数调节不如美术画贴图直观。
 

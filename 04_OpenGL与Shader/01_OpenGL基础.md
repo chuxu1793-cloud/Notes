@@ -35,7 +35,7 @@ void glBind*(GLenum target, GLuint object);       // 绑定/激活对象
 - `0` 是保留值，`glGen*` 永远不会返回 0。绑定 0 通常表示解绑或“使用默认对象”。
 - 可用 `glIsBuffer` 等 `glIs*` 函数查询某个名字是否是已创建的、尚未删除的对象。
 
-![OpenGL 对象与 Context 的状态映射](../../技术笔记/assets/29256E2586504E51894C771F49ECE5DB.png)
+![OpenGL 对象与 Context 的状态映射](../assets/29256E2586504E51894C771F49ECE5DB.png)
 
 ### 1.2 图形渲染管线总览
 
@@ -67,9 +67,9 @@ void glBind*(GLenum target, GLuint object);       // 绑定/激活对象
 
 渲染器在组织上通常分为“资源/状态/绘制”几层：
 
-![渲染器对象组织结构 1](../../技术笔记/assets/8AED034CC12E466691E4C476C3037F1E.png)
+![渲染器对象组织结构 1](../assets/8AED034CC12E466691E4C476C3037F1E.png)
 
-![渲染器对象组织结构 2](../../技术笔记/assets/DDB3AAA007B74983A6FC2447F05B8E5E.jpg)
+![渲染器对象组织结构 2](../assets/DDB3AAA007B74983A6FC2447F05B8E5E.jpg)
 
 **渲染状态**定义了场景中的 mesh 怎样被渲染，包括但不限于：
 
@@ -382,9 +382,9 @@ for (int z = 0; z < ZSCALE - 1; ++z) {
 }
 ```
 
-![规则网格的顶点编号与四边形索引](../../技术笔记/assets/FF56E14992F7467A974D9420F32C048D.jpg)
+![规则网格的顶点编号与四边形索引](../assets/FF56E14992F7467A974D9420F32C048D.jpg)
 
-![索引绘制结果](../../技术笔记/assets/09B0456D3CB74EE5AFA70617259EF07C.jpg)
+![索引绘制结果](../assets/09B0456D3CB74EE5AFA70617259EF07C.jpg)
 
 > 现代 OpenGL Core Profile 已移除 `GL_QUADS`，应改为每格两个三角形（6 个索引）。索引缓冲中三角形的顶点顺序要保持一致的环绕方向。
 
@@ -457,7 +457,7 @@ struct SVertex
 | T3 | V3 V4 V5 |
 | T4 | V5 V4 V6 |
 
-![三角形条带](../../技术笔记/assets/6556C9DA708E46FCBF0DF5D2DB4492E7.png)
+![三角形条带](../assets/6556C9DA708E46FCBF0DF5D2DB4492E7.png)
 
 规律：第 `n` 个三角形使用顶点 `(n, n+1, n+2)`；为保证**环绕方向（winding）一致**，奇数三角形交换前两个顶点。`N` 个顶点生成 `N-2` 个三角形，比 `GL_TRIANGLES` 节省索引与顶点复用。拼接多条 strip 时可插入退化三角形（degenerate triangle）保持一次 draw call。
 
@@ -490,9 +490,9 @@ void glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
 2. **平底（flat-bottom）**：一条水平边在底部；
 3. **任意三角形**：可拆分为一个平顶 + 一个平底。
 
-![平顶三角形](../../技术笔记/assets/B53E11A96E3C403E8D5C6D30FC21E156.png)
+![平顶三角形](../assets/B53E11A96E3C403E8D5C6D30FC21E156.png)
 
-![平底三角形](../../技术笔记/assets/87EEF1F7C83A43E8AF2E896242141DBB.png)
+![平底三角形](../assets/87EEF1F7C83A43E8AF2E896242141DBB.png)
 
 光栅化的核心是：对每条扫描线求出与三角形边的交点，填充区间；同时按重心坐标/线性插值得到深度、颜色、纹理坐标。现代 GPU 用并行的小三角形遍历硬件完成，不再逐扫描线。
 
@@ -871,7 +871,7 @@ z_w = (z_ndc + 1) * (f - n)/2 + n      // 默认 n=0, f=1
 
 把法线看作平面方程的系数（平面方程的 `n` 与平面垂直）：
 
-![表面法线](../../技术笔记/assets/1CCFE290D0D647C386383C08651C3AAA.png)
+![表面法线](../assets/1CCFE290D0D647C386383C08651C3AAA.png)
 
 三角形 `v1-v2-v3` 的齐次平面法线为：
 
@@ -956,11 +956,11 @@ $$
 
 原图：
 
-![原图](../../技术笔记/assets/D7A99344AA2943C4BBC28AB027B02BCD.jpg)
+![原图](../assets/D7A99344AA2943C4BBC28AB027B02BCD.jpg)
 
 绘制结果：
 
-![倾斜结果](../../技术笔记/assets/C28164DE9DD5486A87C80936F1F4FAEC.png)
+![倾斜结果](../assets/C28164DE9DD5486A87C80936F1F4FAEC.png)
 
 原因不是纹理坐标，而是**像素行对齐**：`glPixelStorei(GL_UNPACK_ALIGNMENT, ...)` 默认值是 **4**，即每读取完一行像素后，读指针要跳到下一个 4 字节边界。若图像每行字节数不是 4 的倍数（例如 3 通道 RGB、宽度不是 4 的倍数），行首就会错位，图像逐行偏移，看起来像倾斜。
 
@@ -1105,7 +1105,7 @@ if (tex.width == w2 && tex.height == h2) {
 
 立方体贴图用六张面组成天空盒/环境贴图。六个 target 与空间方向的对应关系如下：
 
-![Cubemap 面与方向](../../技术笔记/assets/2EC5421763AA44D6AB33CE07E2653F55.jpg)
+![Cubemap 面与方向](../assets/2EC5421763AA44D6AB33CE07E2653F55.jpg)
 
 > 不要用 left/right/top 之类的说法——没有统一参考系，极易混淆；直接用 `+X/-X/+Y/-Y/+Z/-Z`。
 
@@ -1135,15 +1135,15 @@ texture->buffer[idx];
 - `x` 从 -1 到 1，站在中心看是右→左；从外部看是左→右，符合 `u` 的增长方向，不需取反；
 - `y` 从 -1 到 1 从下到上，与 `v` 相反，`v` 需取反。
 
-![Cubemap 面朝向示意](../../技术笔记/assets/F8E4251C4B0C43AD9DD5C7C829C58350.jpg)
+![Cubemap 面朝向示意](../assets/F8E4251C4B0C43AD9DD5C7C829C58350.jpg)
 
 内部视角的镜像效果：
 
-![内部视角 1](../../技术笔记/assets/94CE3F682DB14E7F84B36FF117689DA6.png)
+![内部视角 1](../assets/94CE3F682DB14E7F84B36FF117689DA6.png)
 
-![内部视角 2](../../技术笔记/assets/5DC8F3227C2249EBB849A5CFD5ED53CB.png)
+![内部视角 2](../assets/5DC8F3227C2249EBB849A5CFD5ED53CB.png)
 
-![内部视角 3](../../技术笔记/assets/38388D706978496BAF65174895D9745C.png)
+![内部视角 3](../assets/38388D706978496BAF65174895D9745C.png)
 
 实现要点：
 
@@ -1172,7 +1172,7 @@ texture->buffer[idx];
 
 多个 FBO 可以共享同一张纹理；切换关联图像比切换 FBO 更快。多个颜色关联点同时输出即 **MRT（Multiple Render Targets）**。
 
-![FBO、纹理与 Renderbuffer 的关系](../../技术笔记/assets/DEF4ECB5910942A3A8575DFDCDC99EDE.png)
+![FBO、纹理与 Renderbuffer 的关系](../assets/DEF4ECB5910942A3A8575DFDCDC99EDE.png)
 
 #### 3.5.2 创建与绑定
 
@@ -1291,9 +1291,9 @@ glBindTexture(GL_TEXTURE_2D, 0);
 - 相比“渲染到默认帧缓冲再 `glCopyTexSubImage2D` 拷到纹理”，FBO 省掉一次拷贝，而且可以渲染到**比窗口更大**的纹理（传统方式会被窗口尺寸裁剪）。
 - 记得渲染前用 `glViewport(0,0,fboWidth,fboHeight)`，切回默认帧缓冲后恢复窗口视口。
 
-![渲染到纹理示例 1](../../技术笔记/assets/F2E65440A89343FBBA77E0E407F0ADB7.png)
+![渲染到纹理示例 1](../assets/F2E65440A89343FBBA77E0E407F0ADB7.png)
 
-![渲染到纹理示例 2](../../技术笔记/assets/AAD0CDE0D915443E8063CF4BF759C179.png)
+![渲染到纹理示例 2](../assets/AAD0CDE0D915443E8063CF4BF759C179.png)
 
 ---
 
@@ -2095,9 +2095,9 @@ spec = pow(max(0, cos(R, V)), gloss)
 R = 2 * N * dot(N, L) - L
 ```
 
-![Phong 光照示意 1](../../技术笔记/assets/1392C5CDF2FB4EA8AEBFD3EE15651D01.gif)
+![Phong 光照示意 1](../assets/1392C5CDF2FB4EA8AEBFD3EE15651D01.gif)
 
-![Phong 光照示意 2](../../技术笔记/assets/5F316024BBDC45E2A6ABE009476509C3.gif)
+![Phong 光照示意 2](../assets/5F316024BBDC45E2A6ABE009476509C3.gif)
 
 #### 7.2.2 Blinn-Phong
 
@@ -2108,7 +2108,7 @@ H = normalize(L + V)
 cos(α) ≈ dot(H, N)
 ```
 
-![半角向量示意](../../技术笔记/assets/4BC7C818737E46119738C67939AA9D48.gif)
+![半角向量示意](../assets/4BC7C818737E46119738C67939AA9D48.gif)
 
 注意方向约定：若 `Lightvec(input) = vertex - lightPos`（光源指向顶点），则 `H = normalize(eyeVec - Lightvec)`；若 `L = lightPos - vertex`（顶点指向光源，常用约定），则 `H = normalize(L + eyeVec)`。两种写法只差一个符号，混用会导致高光位置错误。
 
@@ -2204,9 +2204,9 @@ void main(void)
 
 三种光直接相加很可能超过 1.0，因此实践中会给每个分量一个权重（上例 0.3/0.4/0.3），或使用 HDR + tone mapping。
 
-![逐像素光照效果 1](../../技术笔记/assets/848A8F6DE42A41AEAC226938698F1219.jpg)
+![逐像素光照效果 1](../assets/848A8F6DE42A41AEAC226938698F1219.jpg)
 
-![逐像素光照效果 2](../../技术笔记/assets/33FE4DFEF21946CDB9BBA6AE8137844A.jpg)
+![逐像素光照效果 2](../assets/33FE4DFEF21946CDB9BBA6AE8137844A.jpg)
 
 #### 7.3.3 兼容管线的内置光照结构
 
@@ -2297,13 +2297,13 @@ Cocos2d-x 的演进：
 
 实测对比（6000×3 个节点）：空节点、三张分开的图、一张合图。代码几乎相同，但合图的性能提升在极端情况下可达约 **3 倍**；即使批次命中率只提高 10%–20%，对性能也有实际收益。所需做的往往只是**把图片合并成一张大图**。
 
-![基准测试（空节点）](../../技术笔记/assets/81822EA35B624E8A9E688DC2355E6976.png)
+![基准测试（空节点）](../assets/81822EA35B624E8A9E688DC2355E6976.png)
 
-![分图测试](../../技术笔记/assets/49D1F0898F5B4F839F97A10737EA1FB2.png)
+![分图测试](../assets/49D1F0898F5B4F839F97A10737EA1FB2.png)
 
-![合图测试](../../技术笔记/assets/28B013E261DA4326BE9EF2767C79638F.png)
+![合图测试](../assets/28B013E261DA4326BE9EF2767C79638F.png)
 
-![三张测试资源](../../技术笔记/assets/72C91861FB3B4D98A598AB210BA0D551.png)
+![三张测试资源](../assets/72C91861FB3B4D98A598AB210BA0D551.png)
 
 延伸结论：
 

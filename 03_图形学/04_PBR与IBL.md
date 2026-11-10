@@ -8,7 +8,7 @@
 
 基于物理的渲染（Physically Based Rendering）是指：使用基于物理原理与微平面理论建模的着色/光照模型，并使用从现实中测量的表面参数来准确表示材质的渲染理念。
 
-![](../../技术笔记/assets/870FD55558B143C0A92D91F613BF6B0C.png)
+![](../assets/870FD55558B143C0A92D91F613BF6B0C.png)
 
 它的五根支柱：
 
@@ -23,11 +23,11 @@
 - 现实物质可分为导体、半导体、绝缘体（渲染中简化为金属/非金属）。
 - **非金属的镜面反射颜色是单色/灰的（F0 为 float），金属的镜面反射颜色是彩色的（F0 为 float3）**。
 
-![](../../技术笔记/assets/EC4671D9EB684042BC26656E34BC100B.png)
+![](../assets/EC4671D9EB684042BC26656E34BC100B.png)
 
 PBR 的收益：物理真实、材质与光照解耦（同一套材质参数可适配不同 HDR 环境）、接口直观（粗糙度/金属度而非经验参数）、易于排错与扩展。
 
-![](../../技术笔记/assets/FE670818219F4901B018014BD98B682C.jpg)
+![](../assets/FE670818219F4901B018014BD98B682C.jpg)
 
 ---
 
@@ -136,24 +136,24 @@ float4 envSample = UNITY_SAMPLE_TEXCUBE_LOD(
 
 `UNITY_SPECCUBE_LOD_STEPS` 决定 mip 范围。内置管线里它是**编译期常量 6**（定义在 `UnityStandardConfig.cginc`），与 cubemap 分辨率无关，对应 128px 探针的 mip 0–6（完整 mip 链是 0–7，即 128…1，6 只是最大卷积索引）；所以即便探针是 1024，`roughness=1` 也只会取到第 6 级，糊得不够。URP 的 Lit 主路径实际调用的是一参版 `PerceptualRoughnessToMipmapLevel(pr)`，内部仍是 `pr*(1.7-0.7*pr)*6`；两参版 `PerceptualRoughnessToMipmapLevel(pr, maxMipLevel)` 才按实际 mip 数归一。$1.7r - 0.7r^2$ 是经验拟合，用来让"模糊程度"随 roughness 视觉上更均匀。
 
-![](../../技术笔记/assets/WEBRESOURCEc9934a0e85881e61ae272440478cf0d7.png)
-![](../../技术笔记/assets/WEBRESOURCE0e06928d3085dbe862c36802792fad07.png)
+![](../assets/WEBRESOURCEc9934a0e85881e61ae272440478cf0d7.png)
+![](../assets/WEBRESOURCE0e06928d3085dbe862c36802792fad07.png)
 
 ### 3.4 金属与非金属的观感差异
 
 - 两者都能产生清晰反射；但非金属的镜面反射不主导外观，diffuse 仍然可见。
 - 金属会**给反射着色**，非金属不会——这对高光与环境反射都成立。
 
-![](../../技术笔记/assets/WEBRESOURCE90ca0129c0c204d0c56290fa6e30131c.png)
-![](../../技术笔记/assets/WEBRESOURCE5690c07ac847aee9baf8f9c8a25c400e.png)
+![](../assets/WEBRESOURCE90ca0129c0c204d0c56290fa6e30131c.png)
+![](../assets/WEBRESOURCE5690c07ac847aee9baf8f9c8a25c400e.png)
 
 ### 3.5 反射与阴影
 
 间接反射与直接光照无关，因此在阴影区依然存在：非金属表现为"整体更亮但仍能看到直射阴影"；金属则因间接反射占主导，随着光滑度上升，直接光与阴影几乎消失——**完美镜面上没有阴影**。现实中镜面上的灰尘、污渍会重新显现阴影，可通过 metallic 取中间值或单独的遮罩来模拟。
 
-![](../../技术笔记/assets/WEBRESOURCE1a830842528505c8731b61779375ea5c.png)
-![](../../技术笔记/assets/WEBRESOURCE31e5d08296bd39df30b2e9a2b3723904.png)
-![](../../技术笔记/assets/WEBRESOURCEc78da6d254f21ca3cd28513d53ed36b7.png)
+![](../assets/WEBRESOURCE1a830842528505c8731b61779375ea5c.png)
+![](../assets/WEBRESOURCE31e5d08296bd39df30b2e9a2b3723904.png)
+![](../assets/WEBRESOURCEc78da6d254f21ca3cd28513d53ed36b7.png)
 
 ### 3.6 Box Projection（反射探针的局部校正）
 
@@ -178,10 +178,10 @@ float3 BoxProjection(float3 direction, float3 position,
 1. 有畸变——只有从探针中心看才是正确的；
 2. 反射范围与探针边界不一致时会错位，因此只有封闭场景（室内）效果稳定。
 
-![](../../技术笔记/assets/WEBRESOURCE3b56134faf29ed1b971159de847ea704.png)
-![](../../技术笔记/assets/WEBRESOURCE897ed02bc2db953a7e9782df79bcea42.png)
-![](../../技术笔记/assets/WEBRESOURCE42a42aa0cfe86a53b721bbc6386ff89f.png)
-![](../../技术笔记/assets/WEBRESOURCEe6a6d0394f7ec4a3ad86821841616cfc.png)
+![](../assets/WEBRESOURCE3b56134faf29ed1b971159de847ea704.png)
+![](../assets/WEBRESOURCE897ed02bc2db953a7e9782df79bcea42.png)
+![](../assets/WEBRESOURCE42a42aa0cfe86a53b721bbc6386ff89f.png)
+![](../assets/WEBRESOURCEe6a6d0394f7ec4a3ad86821841616cfc.png)
 
 ---
 
@@ -199,9 +199,9 @@ IBL 的核心简化：**环境（天空球）被视为无限大**，因此可以
 - **Equirectangular Map（ERP，经纬展开图）**：单张 2:1 图，`atan/asin` 映射，非等面积也非保角，畸变较大；
 - **Dual-Paraboloid Map**：两张抛物面图，单次采样但边缘质量差。
 
-![](../../技术笔记/assets/452CFF433F434E60A2EFDB34CC2F09AC.jpg)
-![](../../技术笔记/assets/33103C614078495D8E256A28E3A1D531.jpg)
-![](../../技术笔记/assets/44778DF82EB44CD98A1DC639D6FB86E9.jpg)
+![](../assets/452CFF433F434E60A2EFDB34CC2F09AC.jpg)
+![](../assets/33103C614078495D8E256A28E3A1D531.jpg)
+![](../assets/44778DF82EB44CD98A1DC639D6FB86E9.jpg)
 
 ERP 采样成 CubeMap 的经典写法：
 
@@ -229,9 +229,9 @@ vec2 SampleSphericalMap(vec3 v)
 
 实际做法：画一个球体贴上 ERP，再用 FOV=90° 的相机分别朝 ±X/±Y/±Z 渲染 6 个面，得到 HDR CubeMap。
 
-![](../../技术笔记/assets/3D00228C85994409A568F022D5BEA095.png)
-![](../../技术笔记/assets/40DDF33E0FCC4838B17DF11C0FEE91DA.png)
-![](../../技术笔记/assets/2922F27C4889410FB516591C2CA3643B.png)
+![](../assets/3D00228C85994409A568F022D5BEA095.png)
+![](../assets/40DDF33E0FCC4838B17DF11C0FEE91DA.png)
+![](../assets/2922F27C4889410FB516591C2CA3643B.png)
 
 ### 4.3 Cubemap 每个 texel 的立体角
 
@@ -281,7 +281,7 @@ double solidAngle(size_t dim, size_t u, size_t v)
 }
 ```
 
-![](../../技术笔记/assets/WEBRESOURCEadf2068bc50a89f0493c4ba34dd211f5.png)
+![](../assets/WEBRESOURCEadf2068bc50a89f0493c4ba34dd211f5.png)
 
 用途：diffuse irradiance 卷积、SH 系数投影、任何"对整球求和/积分"的离线预计算。
 
@@ -353,7 +353,7 @@ vec3 convolution_cube_map(samplerCube cube, int faceIndex, vec2 uv)
 
 预计算尺寸可以很小（如 32×32）：diffuse 是低频信号，双线性插值足够，尺寸小可大幅降低预计算开销。
 
-![](../../技术笔记/assets/CB1EB887312D4F38871359E65DACE75C.jpg)
+![](../assets/CB1EB887312D4F38871359E65DACE75C.jpg)
 
 ### 5.3 运行时合成
 
@@ -597,7 +597,7 @@ void SHAddPointLight(Vector3 probePosition, Vector3 position, float range,
 - 环境 SH 系数始终存在：以 Skybox 为例，设置好天空盒后 3 阶系数就已经产生；
 - 若场景中放置了 Light Probe，则必须烘焙，才会在这些位置生成新的 SH 系数。
 
-![](../../技术笔记/assets/F3E43C9EB3B14A9ABE817FD2BEB80821.png)
+![](../assets/F3E43C9EB3B14A9ABE817FD2BEB80821.png)
 
 ### 8.5 SH Visualizer：把基函数画出来
 
@@ -611,12 +611,12 @@ Unity 运行时实际只用到 9 个系数（$l\le2$）；下面的可视化工�
 4. 实现 16 个 SH 基函数，按金字塔排列，从上到下复杂度递增（球 → 偶极子 → 四叶 → 六瓣）；
 5. 正负瓣着色 + 天光照射 + 环境光遮蔽。
 
-![](../../技术笔记/assets/WEBRESOURCEf49d286c1521e9a209098b9cbdde48d5.png)
-![](../../技术笔记/assets/WEBRESOURCEc4903d1ee7981efb3d52b4cadb5a0474.png)
-![](../../技术笔记/assets/WEBRESOURCE7dddcd25b5beb1feccf04ee1ce115d10.png)
-![](../../技术笔记/assets/WEBRESOURCE40fa3597edfbca182cdcc6f51ea1d39c.png)
-![](../../技术笔记/assets/WEBRESOURCE611fb07a270b3ea93ee5cf5fb02080f0.png)
-![](../../技术笔记/assets/WEBRESOURCE0b978338087d253089e4f4a4b2e0a2ea.png)
+![](../assets/WEBRESOURCEf49d286c1521e9a209098b9cbdde48d5.png)
+![](../assets/WEBRESOURCEc4903d1ee7981efb3d52b4cadb5a0474.png)
+![](../assets/WEBRESOURCE7dddcd25b5beb1feccf04ee1ce115d10.png)
+![](../assets/WEBRESOURCE40fa3597edfbca182cdcc6f51ea1d39c.png)
+![](../assets/WEBRESOURCE611fb07a270b3ea93ee5cf5fb02080f0.png)
+![](../assets/WEBRESOURCE0b978338087d253089e4f4a4b2e0a2ea.png)
 
 > 更完整的推导与实现见 [15_球谐光照](15_球谐光照.md)。
 
